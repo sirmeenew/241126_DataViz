@@ -6,9 +6,11 @@ from streamlit_folium import folium_static
 
 # CSV 파일 불러오기
 df = pd.read_csv('./연령별_출산율_및_합계출산율_행정구역별__20241126033905.csv', header=1)
+df['행정구역별'] = df['행정구역별'].str.strip()
 
 # GeoJSON 파일 불러오기
 gdf_sigungu = gpd.read_file('./N3A_G0100000.json')
+gdf_sigungu['NAME'] = gdf_sigungu['NAME'].str.strip()
 
 # 대한민국 중심 좌표
 namhan_center = [36.34, 127.77]
@@ -20,7 +22,7 @@ title_html = f'<h3 align="center" style="font-size:20px"><b>{title}</b></h3>'
 gu_map = folium.Map(
     location=namhan_center,
     zoom_start=8,
-    tiles='cartodbpositron'
+    tiles='CartoDB Positron'  # 올바른 타일 이름
 )
 
 gu_map.get_root().html.add_child(folium.Element(title_html))
