@@ -1,4 +1,8 @@
+import streamlit as st
 import pandas as pd #pandas 라이브러리 불러오기
+
+import folium
+from streamlit_folium import folium_static
 
 df = pd.read_csv('./연령별_출산율_및_합계출산율_행정구역별__20241126033905.csv', header=1) #전국 시군구별 합계출산율 데이터 불러오기
 df.head()
@@ -7,8 +11,6 @@ import geopandas as gpd #geopandas 라이브러리 불러오기
 
 gdf_sigungu = gpd.read_file('./N3A_G0100000.json') 
 gdf_sigungu.head() #데이터 출력하기
-
-import folium #folium 불러오기
 
 namhan_center = [36.34, 127.77] #대한민국 중심 좌표
 
