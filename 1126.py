@@ -17,7 +17,11 @@ def load_data():
     gdf_sigungu = gpd.read_file(geojson_path)
     return df, gdf_sigungu
 
-df, gdf_sigungu = load_data()
+try:
+    df, gdf_sigungu = load_data()
+except Exception as e:
+    st.error(f"데이터 로드 중 오류 발생: {e}")
+    st.stop()
 
 # 데이터 확인 (디버깅 용도로 추가)
 if st.checkbox("데이터 확인"):
@@ -27,29 +31,34 @@ if st.checkbox("데이터 확인"):
     st.write(gdf_sigungu.head())
 
 # 지도 생성
-namhan_center = [36.34, 127.77]
-title = '전국 시군구별 합계출산율 지도'
-title_html = f'<h3 align="center" style="font-size:20px"><b>{title}</b></h3>'
+try:
+    namhan_center = [36.34, 127.77]
+    title = '전국 시군구별 합계출산율 지도'
+    title_html = f'<h3 align="center" style="font-size:20px"><b>{title}</b></h3>'
 
-gu_map = folium.Map(
-    location=namhan_center,
-    zoom_start=8,
-    tiles='cartodbpositron'
-)
-gu_map.get_root().html.add_child(folium.Element(title_html))
+    gu_map = folium.Map(
+        location=namhan_center,
+        zoom_start=8,
+        tiles='cartodbpositron'
+    )
+    gu_map.get_root().html.add_child(folium.Element(title_html))
 
-folium.Choropleth(
-    geo_data=gdf_sigungu,
-    data=df,
-    columns=('행정구역별', '합계출산율 (가임여성 1명당 명)'),
-    key_on='feature.properties.NAME',
-    fill_color='BuPu',
-    fill_opacity=0.7,
-    line_opacity=0.5,
-    legend_name='전국 시군구별 합계출산율 지도'
-).add_to(gu_map)
+    folium.Choropleth(
+        geo_data=gdf_sigungu,
+        data=df,
+        columns=('행정구역별', '합계출산율 (가임여성 1명당 명)'),
+        key_on='feature.properties.NAME',
+        fill_color='BuPu',
+        fill_opacity=0.7,
+        line_opacity=0.5,
+        legend_name='전국 시군구별 합계출산율 지도'
+    ).add_to(gu_map)
 
-# Streamlit 앱에 지도 표시
-st.title("전국 시군구별 합계출산율")
-st_folium(gu_map, width=800, height=600)
+    # Streamlit 앱에 지도 표시
+    st.title("전국 시군구별 합계출산율")
+    st_folium(gu_map, width=800, height=600)
+
+except Exception as e:
+    st.error("지도를 생성하는 동안 오류가 발생했습니다.")
+    st.error(f"오류 메시지: {e}")
 
