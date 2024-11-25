@@ -6,3 +6,4 @@ geopandas[all]
 shapely
 fiona
 pyproj
+streamlit-folium
