@@ -6,7 +6,7 @@ df.head()
 
 import geopandas as gpd #geopandas 라이브러리 불러오기
 
-gdf_sigungu = gpd.read_file('./N3A_G0100000.json') 
+gdf_sigungu = gpd.read_file('./data/N3A_G0100000.json') 
 gdf_sigungu.head() #데이터 출력하기
 
 import folium #folium 불러오기
