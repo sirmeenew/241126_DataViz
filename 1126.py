@@ -12,7 +12,7 @@ gdf_sigungu.head() #데이터 출력하기
 import folium
 import streamlit as st
 
-from streamlit_folium import st_folium불러오기
+from streamlit_folium import st_folium
 
 namhan_center = [36.34, 127.77] #대한민국 중심 좌표
 
