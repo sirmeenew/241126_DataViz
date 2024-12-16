@@ -9,23 +9,26 @@ import geopandas as gpd #geopandas 라이브러리 불러오기
 gdf_sigungu = gpd.read_file('./data/N3A_G0100000.json') 
 gdf_sigungu.head() #데이터 출력하기
 
-import streamlit-folium as folium #folium 불러오기
+import folium
+import streamlit as st
+
+from streamlit_folium import st_folium불러오기
 
 namhan_center = [36.34, 127.77] #대한민국 중심 좌표
 
 title = '전국 시군구별 합계출산율 지도'
 title_html = f'<h3 align="center" style="font-size:20px"><b>{title}</b></h3>'
 
-gu_map = folium.Map(
+gu_map = st_folium.Map(
 location=namhan_center,
 zoom_start=8,
 tiles='cartodbpositron'
 )
 
-gu_map.get_root().html.add_child(folium.Element(title_html))
+gu_map.get_root().html.add_child(st_folium.Element(title_html))
 
 
-folium.Choropleth(
+st_folium.Choropleth(
   geo_data=gdf_sigungu,
   data=df,
   columns= ('행정구역별',	'합계출산율 (가임여성 1명당 명)'),
