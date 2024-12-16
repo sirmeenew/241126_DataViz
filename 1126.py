@@ -19,16 +19,16 @@ namhan_center = [36.34, 127.77] #대한민국 중심 좌표
 title = '전국 시군구별 합계출산율 지도'
 title_html = f'<h3 align="center" style="font-size:20px"><b>{title}</b></h3>'
 
-gu_map = st_folium.Map(
+gu_map = folium.Map(
 location=namhan_center,
 zoom_start=8,
 tiles='cartodbpositron'
 )
 
-gu_map.get_root().html.add_child(st_folium.Element(title_html))
+gu_map.get_root().html.add_child(folium.Element(title_html))
 
 
-st_folium.Choropleth(
+folium.Choropleth(
   geo_data=gdf_sigungu,
   data=df,
   columns= ('행정구역별',	'합계출산율 (가임여성 1명당 명)'),
